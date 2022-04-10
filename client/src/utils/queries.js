@@ -6,38 +6,16 @@ export const GET_ME = gql`
       _id
       username
       email
-      friendCount
-      thoughts {
-        _id
-        thoughtText
-        createdAt
-        reactionCount
-        reactions {
-          _id
-          createdAt
-          reactionBody
-          username
-        }
-      }
-      friends {
-        _id
-        username
-      }
+      bookCount
+      savedBooks {
+        # _id
+        bookId
+        authors 
+        description 
+        title 
+        image 
+        link  
     }
   }
 `;
 
-export const QUERY_ME_BASIC = gql`
-  {
-    me {
-      _id
-      username
-      email
-      friendCount
-      friends {
-        _id
-        username
-      }
-    }
-  }
-`;
