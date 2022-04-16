@@ -78,7 +78,6 @@ input savedBook {
   link: String
 }
 
-
 type Auth {
   token: ID!
   user: User
@@ -86,6 +85,10 @@ type Auth {
 
 type Query {
   me: User
+  users: [User]
+  user(username: String!): User
+  savedBooks(username: String): [Book]
+  book(_id: ID!): Book
 }
 
 type Mutation {

@@ -9,11 +9,13 @@ import { GET_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
-  const [userDataLength, data] = useQuery(GET_ME);
-    const [deleteBook, {error}] = useMutation(REMOVE_BOOK)
+  const { loading, data } = useQuery(GET_ME);
 
   // use this to determine if `useEffect()` hook needs to run again
   const userData = data?.me || [];
+
+  
+  const [removeBook, {error}] = useMutation(REMOVE_BOOK)
 
   // useEffect(() => {
   //   const getUserData = async () => {
@@ -51,9 +53,9 @@ const SavedBooks = () => {
     try {
       const {data} = await removeBook({variables: { bookId }});
 
-      // if (!response.ok) {
-      //   throw new Error('something went wrong!');
-      // }
+      if (!response.ok) {
+        throw new Error('something went wrong!');
+      }
 
       // const updatedUser = await response.json();
       // setUserData(updatedUser);
@@ -65,10 +67,14 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
+  if (!loading) {
     return <h2>LOADING...</h2>;
   }
 
+  const savedBooksIds = userData.savedBooks.map((book) => book.bookId);
+
+  savedBooksIds(savedBooksIds);
+  
   return (
     <>
       <Jumbotron fluid className='text-light bg-dark'>
